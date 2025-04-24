@@ -18,9 +18,6 @@ logs/
 .DS_Store
 Thumbs.db
 
-# Ignore npm lock file
-package-lock.json
-
 # Ignore TypeScript build artifacts
 *.js
 *.js.map
