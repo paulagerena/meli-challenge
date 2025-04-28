@@ -1,0 +1,60 @@
+@import '../../styles/mixins/responsive.scss';
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  background-color: #ffe600;
+  justify-content: center;
+  padding: 10px;
+}
+
+.search-bar__form {
+  display: flex;
+  position: relative;
+  align-items: center;
+  width: 100%;
+  gap: 20px;
+
+  @include small {
+    max-width: 700px;
+  }
+}
+
+.search-bar__logo {
+  display: flex;
+  place-content: center;
+  margin-right: 20px;
+
+  svg {
+    height: 100%;
+    width: 50px;
+  }
+}
+
+.search-bar__input {
+  width: 100%;
+  min-width: 200px;
+  background-color: #fff;
+  padding: 10px;
+  font-size: 16px;
+  border: none;
+  outline: transparent;
+
+  @include medium {
+    max-width: 700px;
+  }
+}
+
+.search-bar__submit {
+  position: absolute;
+  right: 0;
+  border: none;
+  cursor: pointer;
+  height: 38px;
+  background-color: #e7e7e7;
+
+  i {
+    font-size: 24px;
+    color: #ccc;
+  }
+}

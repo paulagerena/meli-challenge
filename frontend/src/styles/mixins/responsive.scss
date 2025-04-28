@@ -1,0 +1,27 @@
+// Responsive mixins
+// Material Design breakpoints
+// Same as defined in @mui/system/createTheme/createBreakpoints.d.ts
+
+@mixin small {
+  @media only screen and (min-width: 600px) {
+    @content;
+  }
+}
+
+@mixin medium {
+  @media only screen and (min-width: 900px) {
+    @content;
+  }
+}
+
+@mixin large {
+  @media only screen and (min-width: 1200px) {
+    @content;
+  }
+}
+
+@mixin extra-large {
+  @media only screen and (min-width: 1536px) {
+    @content;
+  }
+}
