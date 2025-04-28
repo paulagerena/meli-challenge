@@ -24,3 +24,6 @@ Thumbs.db
 
 # Ignore test coverage reports
 coverage/
+
+# Ignore other files
+.vite/

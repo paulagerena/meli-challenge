@@ -1,10 +1,19 @@
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import Home from './pages/Home/Home';
+
 function App() {
 
   return (
-    <>
-      <h1>Meli Challenge</h1>
-    </>
-  )
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/productos/:keywords" element={<Home />} />
+        <Route path="/productos/:id" element={<Home />} />
+        <Route path="*" element={<Navigate to="/" />} />
+      </Routes>
+    </Router>
+  );
+
 }
 
 export default App;
