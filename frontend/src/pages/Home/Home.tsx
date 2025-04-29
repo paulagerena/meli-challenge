@@ -1,8 +1,9 @@
 import { FC, JSX, useState } from "react";
 import SearchBar from "../../components/SearchBar/SearchBar";
+import { Item } from "../../models/Search.model";
 
 const Home: FC = (): JSX.Element => {
-  const [results, setResults] = useState<unknown[]>([]);
+  const [results, setResults] = useState<Item[]>([]);
 
   return (
     <div>
@@ -15,7 +16,9 @@ const Home: FC = (): JSX.Element => {
             <h1>Resultados de búsqueda</h1>
             <ul>
               {results.map((result, index) => (
-                <li key={index}>{JSON.stringify(result)}</li>
+                <>
+                  <li key={index}>{JSON.stringify(result)}</li>
+                  <img src={`${result.image}`} alt={result.title} /></>
               ))}
             </ul>
           </div> : <section>

@@ -1,7 +1,8 @@
 import { Request, Response } from 'express';
-import { Product, ProductDetail } from '../models/product.model';
+import { ItemDetail } from '../models/items.model';
+import { allItems } from '../mocks/itemDetail';
 
-const getProductDetail = async (req: Request, res: Response) => {
+const getItemDetail = async (req: Request, res: Response) => {
   const { id } = req.params;
 
   if (!id) {
@@ -9,29 +10,17 @@ const getProductDetail = async (req: Request, res: Response) => {
   }
 
   try {
-    const response = await fetch(`https://api.mercadolibre.com/items/${id}`);
+    const product = allItems.find((item: ItemDetail) => item.id === id);
 
-    if (!response.ok) {
-      return res.status(404).json({ message: 'Product not found' });
+    if (!product) {
+      res.status(404).json({ message: 'Product not found' });
     }
-
-    const data = await response.json();
-
-    const product: ProductDetail = {
-      id: data.id,
-      title: data.title,
-      price: data.price,
-      condition: data.condition,
-      thumbnail: data.thumbnail,
-      available_quantity: data.available_quantity,
-      attributes: data.attributes
-    };
 
     res.json(product);
   } catch (error) {
     console.error('Error fetching product details:', error);
-    return res.status(500).json({ message: 'Internal server error' });
+    res.status(500).json({ message: 'Internal server error' });
   }
 };
 
-export default getProductDetail;
+export default getItemDetail;

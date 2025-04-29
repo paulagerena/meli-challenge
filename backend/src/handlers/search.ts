@@ -1,34 +1,44 @@
-import { Request, Response } from 'express';
-import { Product } from '../models/product.model';
+import { Request, RequestHandler, Response } from 'express';
+import { Item } from '../models/items.model';
+import searchResults from '../mocks/searchResults';
 
-const searchByKeywords = async (req: Request, res: Response) => {
-  const { keywords } = req.query;
+const findItemsByKeywords = async (req: Request, res: Response) => {
+  const { keywords } = req.params;
+
+  // Convert each term in keywords to an array
+  const keywordsArray = keywords.split(' ');
 
   if (!keywords) {
-    return res.status(400).json({ message: 'Keywords are required' });
+    res.status(400).json({ message: 'Keywords are required' });
+    return;
   }
 
   try {
-    const response = await fetch(`https://api.mercadolibre.com/sites/MLA/search?q=${keywords}`);
+    // Simulate delay of an API call to Mercado Libre API
+    await new Promise((resolve) => setTimeout(resolve, 2000));
 
-    if (!response.ok) {
-      return res.status(404).json({ message: 'No products found' });
+    // Find given keywords in items title
+    const foundItems: Item[] = searchResults.filter((item: Item) =>
+      // Find if any of the keywords terms are in any item title
+      keywordsArray.some((keyword) => item.title.toLowerCase().includes(keyword.toLowerCase()))
+    );
+
+    // If no items are found, return 404
+    if (foundItems.length === 0) {
+      res.status(404).json({ items: [], message: 'No products found' });
+      return;
     }
 
-    const data = await response.json();
-    const products: Product[] = data.results.map((item: Product) => ({
-      id: item.id,
-      title: item.title,
-      price: item.price,
-      condition: item.condition,
-      thumbnail: item.thumbnail
-    }));
-
-    res.json(products);
+    // Return the found items
+    res.status(200).json({
+      items: foundItems,
+      total_found: foundItems.length
+    });
+    return;
   } catch (error) {
-    console.error('Error fetching products:', error);
-    return res.status(500).json({ message: 'Internal server error' });
+    res.status(500).json({ message: 'Internal server error' });
+    return;
   }
 };
 
-export default searchByKeywords;
+export { findItemsByKeywords };

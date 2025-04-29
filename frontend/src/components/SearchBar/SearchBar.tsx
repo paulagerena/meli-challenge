@@ -1,10 +1,12 @@
 import React, { FC, JSX, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import SearchService from "../../services/Search.service.tsx";
 import Logo from '../../assets/logo.svg';
 import "./SearchBar.scss";
+import { Item } from "../../models/Search.model.tsx";
 
 interface SearchBarProps {
-  onSearchSuccess: (data: unknown[]) => void;
+  onSearchSuccess: (data: Item[]) => void;
 }
 
 const SearchBar: FC<SearchBarProps> = ({ onSearchSuccess }): JSX.Element => {
@@ -29,20 +31,16 @@ const SearchBar: FC<SearchBarProps> = ({ onSearchSuccess }): JSX.Element => {
 
       // Call the search service
       try {
-        /* const response = await SearchService.searchByKeyword(searchTerm);
+        const response = await SearchService.searchByKeywords(searchTerm);
+
+        console.log("SearchBar received response:", response);
 
         if (!response) {
           console.error("No data found");
           return;
-        } */
+        }
 
-        const mockResponse = [
-          { id: 1, name: "Producto 1", price: 100, city: "Buenos Aires" },
-          { id: 2, name: "Producto 2", price: 200, city: "Rosario" },
-          { id: 3, name: "Producto 3", price: 300, city: "La Plata" },
-        ];
-
-        onSearchSuccess(mockResponse);
+        onSearchSuccess(response.items);
       } catch (error) {
         console.error("Error fetching search results:", error);
       }

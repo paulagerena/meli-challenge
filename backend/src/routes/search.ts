@@ -1,9 +1,9 @@
 import Router, { RequestHandler } from 'express';
-import searchByKeywords from '../handlers/search';
+import { findItemsByKeywords } from '../handlers/search';
 
 const routes = Router();
 
 // Route to search products by keywords
-routes.get('/products/search/:keywords', searchByKeywords as RequestHandler);
+routes.get('/api/search/:keywords', findItemsByKeywords);
 
 export default routes;
