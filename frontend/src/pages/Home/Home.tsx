@@ -1,32 +1,32 @@
 import { FC, JSX, useState } from "react";
 import SearchBar from "../../components/SearchBar/SearchBar";
 import { Item } from "../../models/Search.model";
+import "./Home.scss";
+import ResultsList from "../../components/Results/ResultsList/ResultsList";
+import Loader from "../../components/Loader/Loader";
 
 const Home: FC = (): JSX.Element => {
-  const [results, setResults] = useState<Item[]>([]);
+  const [results, setResults] = useState<Item[]>();
+  const [showLoader, setShowLoader] = useState(false);
 
   return (
-    <div>
+    <section className="home">
+      <Loader isLoading={showLoader} />
       <header>
-        <SearchBar onSearchSuccess={data => setResults(data)} />
+        <SearchBar
+          onSearchSuccess={data => setResults(data)}
+          onLoading={loading => setShowLoader(loading)} />
       </header>
-      <main>
-        {results.length > 0 ?
-          <div>
-            <h1>Resultados de búsqueda</h1>
-            <ul>
-              {results.map((result, index) => (
-                <>
-                  <li key={index}>{JSON.stringify(result)}</li>
-                  <img src={`${result.image}`} alt={result.title} /></>
-              ))}
-            </ul>
-          </div> : <section>
-            <h1>Bienvenido a la tienda</h1>
+      <main className="home__content">
+        {results && !showLoader ? (
+          <ResultsList results={results} />
+        ) : !showLoader && (
+          <section className="home__welcome">
+            <h1>Bienvenido a Mercado Libre</h1>
             <p>Explorá nuestros productos y encontrá lo que necesitás.</p>
-          </section>}
+          </section>)}
       </main>
-    </div>
+    </section>
   );
 }
 

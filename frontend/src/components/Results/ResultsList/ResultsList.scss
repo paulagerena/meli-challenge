@@ -1,0 +1,26 @@
+@import '../../../styles/mixins/responsive.scss';
+
+.results-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-inline-start: 0;
+  gap: 1px;
+
+  @include small {
+    max-width: 700px;
+  }
+
+  &__empty {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 80vh;
+
+    @include small {
+      min-width: 700px;
+    }
+  }
+}

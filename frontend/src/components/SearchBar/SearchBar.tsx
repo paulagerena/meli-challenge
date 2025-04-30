@@ -7,9 +7,10 @@ import { Item } from "../../models/Search.model.tsx";
 
 interface SearchBarProps {
   onSearchSuccess: (data: Item[]) => void;
+  onLoading: (loading: boolean) => void;
 }
 
-const SearchBar: FC<SearchBarProps> = ({ onSearchSuccess }): JSX.Element => {
+const SearchBar: FC<SearchBarProps> = ({ onSearchSuccess, onLoading }): JSX.Element => {
   const navigate = useNavigate();
 
   const [searchTerm, setSearchTerm] = useState("");
@@ -27,13 +28,13 @@ const SearchBar: FC<SearchBarProps> = ({ onSearchSuccess }): JSX.Element => {
     }
 
     if (searchTerm) {
+      onLoading(true);
+
       const formattedSearchTerm = searchTerm.trim().replace(/\s+/g, "+")
 
       // Call the search service
       try {
         const response = await SearchService.searchByKeywords(searchTerm);
-
-        console.log("SearchBar received response:", response);
 
         if (!response) {
           console.error("No data found");
@@ -41,33 +42,38 @@ const SearchBar: FC<SearchBarProps> = ({ onSearchSuccess }): JSX.Element => {
         }
 
         onSearchSuccess(response.items);
-      } catch (error) {
-        console.error("Error fetching search results:", error);
-      }
 
-      // Navigate to the search results page
-      navigate(`/productos/${formattedSearchTerm}`, { replace: true });
+        // Navigate to the search results page
+        navigate(`/productos/${formattedSearchTerm}`, { replace: true });
+      } catch (error) {
+        onSearchSuccess([]);
+        console.error("Error fetching data", error);
+      } finally {
+        onLoading(false)
+      }
     }
   }
 
   return (
     <section className="search-bar">
-      <div className="search-bar__logo" >
-        <Logo />
+      <div className="search-bar__content">
+        <div className="search-bar__logo" >
+          <Logo />
+        </div>
+        <form onSubmit={handleSearch} className="search-bar__form">
+          <input
+            type="text"
+            name="search"
+            value={searchTerm}
+            placeholder="Nunca dejes de buscar..."
+            onChange={handleInputChange}
+            className="search-bar__input"
+          />
+          <button type="submit" className="search-bar__submit" onClick={handleSearch}>
+            <i className="material-icons">search</i>
+          </button>
+        </form>
       </div>
-      <form onSubmit={handleSearch} className="search-bar__form">
-        <input
-          type="text"
-          name="search"
-          value={searchTerm}
-          placeholder="Nunca dejes de buscar..."
-          onChange={handleInputChange}
-          className="search-bar__input"
-        />
-        <button type="submit" className="search-bar__submit" onClick={handleSearch}>
-          <i className="material-icons">search</i>
-        </button>
-      </form>
     </section >
   );
 }

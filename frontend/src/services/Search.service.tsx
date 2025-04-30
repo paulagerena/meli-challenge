@@ -16,7 +16,8 @@ class SearchService {
           resolve(response.data);
         })
         .catch((error) => {
-          reject(error.response);
+          const errorMessage = error.response?.data?.message || error.response;
+          reject(errorMessage);
         });
     });
   }
