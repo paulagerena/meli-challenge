@@ -1,60 +1,65 @@
 @import '../../styles/mixins/responsive.scss';
+@import '../../styles/variables.scss';
 
 .search-bar {
   display: flex;
-  align-items: center;
-  background-color: #ffe600;
   justify-content: center;
+  background-color: $meli-yellow;
   padding: 10px;
-}
 
-.search-bar__form {
-  display: flex;
-  position: relative;
-  align-items: center;
-  width: 100%;
-  gap: 20px;
+  &__content {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
 
-  @include small {
-    max-width: 700px;
+    @include small {
+      max-width: 700px;
+    }
   }
-}
 
-.search-bar__logo {
-  display: flex;
-  place-content: center;
-  margin-right: 20px;
-
-  svg {
-    height: 100%;
-    width: 50px;
+  &__form {
+    display: flex;
+    position: relative;
+    width: 100%;
   }
-}
 
-.search-bar__input {
-  width: 100%;
-  min-width: 200px;
-  background-color: #fff;
-  padding: 10px;
-  font-size: 16px;
-  border: none;
-  outline: transparent;
+  &__logo {
+    display: flex;
+    place-content: center;
+    margin-right: 20px;
 
-  @include medium {
-    max-width: 700px;
+    svg {
+      height: 100%;
+      width: 50px;
+    }
   }
-}
 
-.search-bar__submit {
-  position: absolute;
-  right: 0;
-  border: none;
-  cursor: pointer;
-  height: 38px;
-  background-color: #e7e7e7;
+  &__input {
+    width: 100%;
+    min-width: 200px;
+    background-color: $meli-white;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    outline: transparent;
 
-  i {
-    font-size: 24px;
-    color: #ccc;
+    @include medium {
+      max-width: 700px;
+    }
+  }
+
+  &__submit {
+    position: absolute;
+    right: 0;
+    border: none;
+    cursor: pointer;
+    height: 38px;
+    background-color: $meli-gray;
+
+    i {
+      font-size: 24px;
+      color: $meli-dark-gray;
+    }
   }
 }
