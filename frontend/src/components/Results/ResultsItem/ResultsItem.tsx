@@ -1,7 +1,7 @@
-import { JSX, FC } from "react";
-import "./ResultsItem.scss";
-import { Currency } from "../../../models/Search.model";
-import NumberUtils from "../../../utils/numberUtils";
+import { JSX, FC } from 'react';
+import './ResultsItem.scss';
+import { Currency } from '../../../models/Search.model';
+import NumberUtils from '../../../utils/numberUtils';
 
 interface ResultsItemProps {
   id: string;
@@ -20,7 +20,6 @@ const ResultsItem: FC<ResultsItemProps> = ({
   imageSrc,
   city
 }): JSX.Element => {
-
   return (
     <li className="results-item" onClick={() => console.log(id)}>
       <img src={imageSrc} alt={title} />
@@ -33,6 +32,6 @@ const ResultsItem: FC<ResultsItemProps> = ({
       </div>
     </li>
   );
-}
+};
 
 export default ResultsItem;

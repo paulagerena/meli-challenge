@@ -1,9 +1,7 @@
-
-import { SearchResponse } from "../models/Search.model";
-import api, { meliUrl } from "../utils/api";
+import { SearchResponse } from '../models/Search.model';
+import api, { meliUrl } from '../utils/api';
 
 class SearchService {
-
   /**
    * Searches items by keywords
    */

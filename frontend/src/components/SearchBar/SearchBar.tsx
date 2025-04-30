@@ -1,8 +1,8 @@
-import React, { FC, JSX, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import SearchService from "../../services/Search.service.tsx";
+import React, { FC, JSX, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import SearchService from '../../services/Search.service.tsx';
 import Logo from '../../assets/logo.svg';
-import "./SearchBar.scss";
+import './SearchBar.scss';
 import { Item } from "../../models/Search.model.tsx";
 
 interface SearchBarProps {
@@ -13,31 +13,33 @@ interface SearchBarProps {
 const SearchBar: FC<SearchBarProps> = ({ onSearchSuccess, onLoading }): JSX.Element => {
   const navigate = useNavigate();
 
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState('');
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
   };
 
-  const handleSearch = async (event: React.MouseEvent<HTMLElement> | React.FormEvent<HTMLFormElement>) => {
+  const handleSearch = async (
+    event: React.MouseEvent<HTMLElement> | React.FormEvent<HTMLFormElement>
+  ) => {
     event.preventDefault();
 
     // Check if the search term is empty
-    if (searchTerm.trim() === "") {
+    if (searchTerm.trim() === '') {
       return;
     }
 
     if (searchTerm) {
       onLoading(true);
 
-      const formattedSearchTerm = searchTerm.trim().replace(/\s+/g, "+")
+      const formattedSearchTerm = searchTerm.trim().replace(/\s+/g, '+');
 
       // Call the search service
       try {
         const response = await SearchService.searchByKeywords(searchTerm);
 
         if (!response) {
-          console.error("No data found");
+          console.error('No data found');
           return;
         }
 
@@ -47,17 +49,17 @@ const SearchBar: FC<SearchBarProps> = ({ onSearchSuccess, onLoading }): JSX.Elem
         navigate(`/productos/${formattedSearchTerm}`, { replace: true });
       } catch (error) {
         onSearchSuccess([]);
-        console.error("Error fetching data", error);
+        console.error('Error fetching data', error);
       } finally {
-        onLoading(false)
+        onLoading(false);
       }
     }
-  }
+  };
 
   return (
     <section className="search-bar">
       <div className="search-bar__content">
-        <div className="search-bar__logo" >
+        <div className="search-bar__logo">
           <Logo />
         </div>
         <form onSubmit={handleSearch} className="search-bar__form">
@@ -69,13 +71,12 @@ const SearchBar: FC<SearchBarProps> = ({ onSearchSuccess, onLoading }): JSX.Elem
             onChange={handleInputChange}
             className="search-bar__input"
           />
-          <button type="submit" className="search-bar__submit" onClick={handleSearch}>
-            <i className="material-icons">search</i>
+          <button type="submit" className="search-bar__submit" onClick={handleSearch}> <i className="material-icons">search</i>
           </button>
         </form>
       </div>
-    </section >
+    </section>
   );
-}
+};
 
 export default SearchBar;

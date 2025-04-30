@@ -1,0 +1,9 @@
+# Ignore 
+/node_modules
+build
+dist
+coverage
+.git
+*.log
+*.tmp
+*.swp

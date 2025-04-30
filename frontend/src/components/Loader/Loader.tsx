@@ -6,7 +6,6 @@ interface LoaderProps {
 }
 
 const Loader: FC<LoaderProps> = ({ isLoading }): JSX.Element => {
-
   if (!isLoading) {
     return <></>;
   }
@@ -14,7 +13,12 @@ const Loader: FC<LoaderProps> = ({ isLoading }): JSX.Element => {
   return (
     <div>
       <div className="loader-overlay">
-        <div className="loader-ellipsis"><div></div><div></div><div></div><div></div></div>
+        <div className="loader-ellipsis">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
       </div>
     </div>
   );
