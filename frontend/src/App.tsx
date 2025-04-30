@@ -2,7 +2,6 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-d
 import Home from './pages/Home/Home';
 
 function App() {
-
   return (
     <Router>
       <Routes>
@@ -13,7 +12,6 @@ function App() {
       </Routes>
     </Router>
   );
-
 }
 
 export default App;

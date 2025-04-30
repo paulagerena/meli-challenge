@@ -1,7 +1,7 @@
-import { FC, JSX } from "react";
-import ResultsItem from "../ResultsItem/ResultsItem";
-import { Item } from "../../../models/Search.model";
-import "./ResultsList.scss";
+import { FC, JSX } from 'react';
+import ResultsItem from '../ResultsItem/ResultsItem';
+import { Item } from '../../../models/Search.model';
+import './ResultsList.scss';
 
 interface ResultsListProps {
   results: Item[];
@@ -20,14 +20,15 @@ const ResultsList: FC<ResultsListProps> = ({ results }): JSX.Element => {
               price={item.price}
               currency={item.currency}
               imageSrc={item.image}
-              city={item.location.city} />
+              city={item.location.city}
+            />
           ))}
         </ul>
       ) : (
         <span className="results-list__empty">No hay resultados que coincidan con tu búsqueda</span>
       )}
-    </div >
+    </div>
   );
-}
+};
 
 export default ResultsList;
