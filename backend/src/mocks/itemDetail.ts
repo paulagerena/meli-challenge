@@ -23,7 +23,7 @@ const itemDetail2: ItemDetail = {
   title: 'Samsung Galaxy S23 Ultra 512GB',
   price: 780999,
   currency: Currency.ARS,
-  sold_quantity: 3,
+  sold_quantity: 32,
   condition: Condition.NEW,
   image: '/images/samsung_s23_5G_256gb.webp',
   description:
@@ -40,7 +40,7 @@ const itemDetail3: ItemDetail = {
   title: 'Motorola Edge 40 Pro 256GB Nuevo en caja sellado',
   price: 670000,
   currency: Currency.ARS,
-  sold_quantity: 2,
+  sold_quantity: 21,
   condition: Condition.NEW,
   image: '/images/motorola_edge40.webp',
   description:
@@ -59,7 +59,7 @@ const itemDetail4: ItemDetail = {
   currency: Currency.ARS,
   sold_quantity: 1,
   condition: Condition.NEW,
-  image: 'item4.jpg',
+  image: '/images/ipod_touch_32gb_azul_7gen.webp',
   description:
     'NUEVO EN CAJA. iPod Touch Renovado De 16 Gb (quinta Generación). Se entrega en Argentina. Con caja y accesorios originales.',
   location: {
@@ -76,7 +76,7 @@ const itemDetail5: ItemDetail = {
   currency: Currency.ARS,
   sold_quantity: 8,
   condition: Condition.USED,
-  image: 'item5.jpg',
+  image: '/images/ipod_nano_2gen_4gb.webp',
   description:
     'El primer iPod Nano. Funcionalmente nuevo. Sin rayones ni marcas de uso. Con caja y accesorios originales.',
   location: {
@@ -109,7 +109,7 @@ const itemDetail7: ItemDetail = {
   currency: Currency.ARS,
   sold_quantity: 0,
   condition: Condition.USED,
-  image: 'item7.jpg',
+  image: '/images/ipod_classic_80gb_usado.webp',
   description:
     'El mejor iPod de todos los tiempos. Con pantalla Retina de 4 pulgadas, chip A10 Fusion y cámara de 8 MP. Con caja y accesorios originales.',
   location: {
@@ -126,7 +126,7 @@ const itemDetail8: ItemDetail = {
   currency: Currency.ARS,
   sold_quantity: 0,
   condition: Condition.USED,
-  image: 'item8.jpg',
+  image: '/images/ipod_touch_32gb_azul_7gen.webp',
   description:
     'iPod Touch 6th Generación. Funcionalmente nuevo. Sin rayones ni marcas de uso. Con caja y accesorios originales.',
   location: {

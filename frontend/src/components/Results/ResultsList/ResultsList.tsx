@@ -9,7 +9,7 @@ interface ResultsListProps {
 
 const ResultsList: FC<ResultsListProps> = ({ results }): JSX.Element => {
   return (
-    <div>
+    <>
       {results.length > 0 ? (
         <ul className="results-list">
           {results.map((item, index) => (
@@ -27,7 +27,7 @@ const ResultsList: FC<ResultsListProps> = ({ results }): JSX.Element => {
       ) : (
         <span className="results-list__empty">No hay resultados que coincidan con tu búsqueda</span>
       )}
-    </div>
+    </>
   );
 };
 

@@ -1,15 +1,7 @@
 import { FC, JSX } from 'react';
 import './Loader.scss';
 
-interface LoaderProps {
-  isLoading: boolean;
-}
-
-const Loader: FC<LoaderProps> = ({ isLoading }): JSX.Element => {
-  if (!isLoading) {
-    return <></>;
-  }
-
+const Loader: FC = (): JSX.Element => {
   return (
     <div>
       <div className="loader-overlay">
