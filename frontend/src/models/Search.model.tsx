@@ -27,6 +27,19 @@ export interface Item {
   image: string;
 }
 
+export interface ItemDetail {
+  id: string;
+  title: string;
+  price: number;
+  currency: Currency;
+  sold_quantity: number;
+  condition: Condition;
+  image?: string;
+  location: Location;
+  description?: string;
+  attributes: unknown[];
+}
+
 export interface SearchResponse {
   items: Item[];
   total_count: number;

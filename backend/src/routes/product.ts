@@ -1,9 +1,9 @@
 import Router, { RequestHandler } from 'express';
-import getProductDetail from '../handlers/productDetail';
+import { getItemDetail } from '../handlers/itemDetail';
 
 const routes = Router();
 
 // Route to get product details by product ID
-routes.get('/products/detail/:id', getProductDetail as RequestHandler);
+routes.get('/api/products/detail/:id', getItemDetail);
 
 export default routes;

@@ -21,7 +21,13 @@ const ResultsItem: FC<ResultsItemProps> = ({
   city
 }): JSX.Element => {
   return (
-    <li className="results-item" onClick={() => console.log(id)}>
+    <li
+      className="results-item"
+      onClick={() => {
+        // Navigate to the item page route and update selected id in state
+        console.log(id);
+      }}
+    >
       <img src={imageSrc} alt={title} />
       <div className="results-item__info">
         <span className="results-item__price">{NumberUtils.getCurrency(price, currency)}</span>

@@ -18,7 +18,7 @@ const api = axios.create(config);
 
 export const meliUrl = {
   searchByKeywords: (keywords: string) => `${apiUrl}/search/${keywords}`,
-  getItemDetail: (id: string) => `${apiUrl}/products/${id}`
+  getItemDetail: (id: string) => `${apiUrl}/products/detail/${id}`
 };
 
 export default api;
