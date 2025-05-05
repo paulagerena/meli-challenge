@@ -20,7 +20,9 @@ const findItemsByKeywords = async (req: Request, res: Response) => {
     // Find given keywords in items title
     const foundItems: Item[] = searchResults.filter((item: Item) =>
       // Find if any of the keywords terms are in any item title
-      keywordsArray.some((keyword) => item.title.toLowerCase().includes(keyword.toLowerCase()))
+      keywordsArray.some(
+        (keyword) => keyword.length >= 3 && item.title.toLowerCase().includes(keyword.toLowerCase())
+      )
     );
 
     // If no items are found, return 404

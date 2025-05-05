@@ -1,18 +1,17 @@
 import { FC, JSX } from 'react';
 import ResultsItem from '../ResultsItem/ResultsItem';
-import { Item } from '../../../models/Search.model';
 import './ResultsList.scss';
+import { useAppSelector } from '../../../redux/hooks';
 
-interface ResultsListProps {
-  results: Item[];
-}
+const ResultsList: FC = (): JSX.Element => {
+  const loading = useAppSelector((state) => state.search.loading);
+  const items = useAppSelector((state) => state.search.results);
 
-const ResultsList: FC<ResultsListProps> = ({ results }): JSX.Element => {
   return (
     <>
-      {results.length > 0 ? (
+      {items && items?.length > 0 ? (
         <ul className="results-list">
-          {results.map((item, index) => (
+          {items.map((item, index) => (
             <ResultsItem
               key={`${index}-${item.id}`}
               id={item.id}
@@ -25,7 +24,12 @@ const ResultsList: FC<ResultsListProps> = ({ results }): JSX.Element => {
           ))}
         </ul>
       ) : (
-        <span className="results-list__empty">No hay resultados que coincidan con tu búsqueda</span>
+        items?.length === 0 &&
+        !loading && (
+          <span className="results-list__empty">
+            No hay resultados que coincidan con tu búsqueda
+          </span>
+        )
       )}
     </>
   );
