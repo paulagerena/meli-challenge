@@ -1,37 +1,21 @@
-import { FC, JSX, useEffect, useState } from 'react';
+import { FC, JSX } from 'react';
 import SearchBar from '../../components/SearchBar/SearchBar';
-import { Item } from '../../models/Search.model';
 import './Home.scss';
-import ResultsList from '../../components/Results/ResultsList/ResultsList';
 import Loader from '../../components/Loader/Loader';
-import ItemDetail from '../../components/ItemDetail/ItemDetail';
+import { useAppSelector } from '../../redux/hooks';
+import { Outlet } from 'react-router';
 
 const Home: FC = (): JSX.Element => {
-  const [results, setResults] = useState<Item[]>();
-  const [showLoader, setShowLoader] = useState(false);
-
-  const [id, setId] = useState<string>('7');
+  const loading = useAppSelector((state) => state.search.loading);
 
   return (
     <section className="home">
-      {showLoader && <Loader />}
+      {loading && <Loader />}
       <header>
-        <SearchBar
-          onSearchSuccess={(data) => setResults(data)}
-          onLoading={(loading) => setShowLoader(loading)}
-        />
+        <SearchBar />
       </header>
       <main className="home__content">
-        {results && !showLoader && !id && <ResultsList results={results} />}
-
-        {id && !results && <ItemDetail id={id} />}
-
-        {!showLoader && !id && !results && (
-          <section className="home__welcome">
-            <h1>Bienvenido a Mercado Libre</h1>
-            <p>Explorá nuestros productos y encontrá lo que necesitás.</p>
-          </section>
-        )}
+        <Outlet />
       </main>
     </section>
   );

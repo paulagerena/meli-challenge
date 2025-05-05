@@ -1,43 +1,41 @@
-import { JSX, FC, useState, useEffect } from 'react';
+import { JSX, FC, useState, useEffect, useCallback } from 'react';
 import NumberUtils from '../../utils/numberUtils';
 import { Condition, ItemDetail as ItemModel } from '../../models/Search.model';
 import SearchService from '../../services/Search.service';
-import { useNavigate } from 'react-router-dom';
 import './ItemDetail.scss';
 import Button from '../Button/Button';
+import { useAppSelector } from '../../redux/hooks';
+import { useParams } from 'react-router';
 
-interface ItemDetailsProps {
-  id: string;
-}
-
-const ItemDetail: FC<ItemDetailsProps> = ({ id }): JSX.Element => {
-  const navigate = useNavigate();
+const ItemDetail: FC = (): JSX.Element => {
+  const params = useParams();
+  const itemId = useAppSelector((state) => state.search.selectedItemId);
 
   const [itemData, setItemData] = useState<ItemModel | null>(null);
 
-  const getItemInformation = async (id: string) => {
+  const getItemInformation = useCallback(async (id: string) => {
     try {
       const response = await SearchService.getItemById(id);
 
-      if (!response) {
-        console.error('No data found');
-        return;
-      }
-
       setItemData(response);
-
-      // Navigate to the item page route
-      navigate(`/productos/${id}`, { replace: true });
     } catch {
       console.error('Error retrieving item data');
     }
-  };
+  }, []);
 
   useEffect(() => {
-    if (id) {
-      (async () => await getItemInformation(id))();
+    if (params && params.id && params.id !== itemId) {
+      const id = params.id as string;
+      setItemData(null);
+      getItemInformation(id);
     }
-  }, [id]);
+  }, [params]);
+
+  useEffect(() => {
+    if (itemId) {
+      getItemInformation(itemId);
+    }
+  }, []);
 
   return (
     <>

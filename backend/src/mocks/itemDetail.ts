@@ -88,7 +88,7 @@ const itemDetail5: ItemDetail = {
 
 const itemDetail6: ItemDetail = {
   id: '6',
-  title: 'iPod touch 7th Gen 256GB',
+  title: 'iPod touch 7th Gen 32GB',
   price: 219400.75,
   currency: Currency.ARS,
   sold_quantity: 3,
@@ -121,14 +121,14 @@ const itemDetail7: ItemDetail = {
 
 const itemDetail8: ItemDetail = {
   id: '8',
-  title: 'Apple iPod Touch 6th Generación 128GB',
-  price: 199290.99,
+  title: 'Nokia G60 5G 128GB Nuevo en caja sellado',
+  price: 870000,
   currency: Currency.ARS,
   sold_quantity: 0,
   condition: Condition.USED,
-  image: '/images/ipod_touch_32gb_azul_7gen.webp',
+  image: '/images/nokia_g60.webp',
   description:
-    'iPod Touch 6th Generación. Funcionalmente nuevo. Sin rayones ni marcas de uso. Con caja y accesorios originales.',
+    'Nuevo en caja sellado. Con pantalla de 6.58 pulgadas, cámara de 50 MP y batería de 4500 mAh. Con caja y accesorios originales.',
   location: {
     city: 'CABA',
     state: 'Buenos Aires',

@@ -1,22 +1,46 @@
-import React, { FC, JSX, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { FC, JSX, useEffect, useState } from 'react';
+import { useNavigate, useParams, Link } from 'react-router';
 import SearchService from '../../services/Search.service.tsx';
 import Logo from '../../assets/logo.svg';
 import './SearchBar.scss';
-import { Item } from '../../models/Search.model.tsx';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks.ts';
+import {
+  updateLoading,
+  updateResults,
+  updateLatestSearchTerm
+} from '../../redux/features/searchSlice.ts';
 
-interface SearchBarProps {
-  onSearchSuccess: (data: Item[]) => void;
-  onLoading: (loading: boolean) => void;
-}
-
-const SearchBar: FC<SearchBarProps> = ({ onSearchSuccess, onLoading }): JSX.Element => {
+const SearchBar: FC = (): JSX.Element => {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const params = useParams();
+
+  const latestSearchTerm = useAppSelector((state) => state.search.latestSearchTerm);
 
   const [searchTerm, setSearchTerm] = useState('');
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
+  };
+
+  const getSearchResults = async (searchTerm: string) => {
+    dispatch(updateLoading(true));
+
+    try {
+      const response = await SearchService.searchByKeywords(searchTerm);
+
+      dispatch(updateResults(response.items));
+      dispatch(updateLatestSearchTerm(searchTerm));
+
+      // Navigate to the search results page
+      navigate(`/resultados/${searchTerm}`);
+    } catch (error) {
+      dispatch(updateResults([]));
+      dispatch(updateLatestSearchTerm(null));
+      console.error('Error fetching data', error);
+    } finally {
+      dispatch(updateLoading(false));
+    }
   };
 
   const handleSearch = async (
@@ -30,37 +54,31 @@ const SearchBar: FC<SearchBarProps> = ({ onSearchSuccess, onLoading }): JSX.Elem
     }
 
     if (searchTerm) {
-      onLoading(true);
+      dispatch(updateLoading(true));
 
       const formattedSearchTerm = searchTerm.trim().replace(/\s+/g, '+');
 
-      try {
-        const response = await SearchService.searchByKeywords(searchTerm);
-
-        if (!response) {
-          console.error('No data found');
-          return;
-        }
-
-        onSearchSuccess(response.items);
-
-        // Navigate to the search results page
-        navigate(`/productos/${formattedSearchTerm}`, { replace: true });
-      } catch (error) {
-        onSearchSuccess([]);
-        console.error('Error fetching data', error);
-      } finally {
-        onLoading(false);
-      }
+      // Fetch search results
+      await getSearchResults(formattedSearchTerm);
     }
   };
+
+  useEffect(() => {
+    if (params && params.keywords && params.keywords !== latestSearchTerm) {
+      const formattedKeywords = params.keywords.replace(/\+/g, ' ');
+      setSearchTerm(formattedKeywords);
+
+      // Fetch search results based on the keywords in the URL
+      getSearchResults(formattedKeywords);
+    }
+  }, [params]);
 
   return (
     <section className="search-bar">
       <div className="search-bar__content">
-        <div className="search-bar__logo">
+        <Link className="search-bar__logo" to="/">
           <Logo />
-        </div>
+        </Link>
         <form onSubmit={handleSearch} className="search-bar__form">
           <input
             type="text"

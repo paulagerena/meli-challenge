@@ -69,7 +69,7 @@ const items: Item[] = [
   },
   {
     id: '6',
-    title: 'iPod touch 7th Gen 256GB',
+    title: 'iPod touch 7th Gen 32GB',
     price: 219400.75,
     currency: Currency.ARS,
     image: '/images/ipod_touch_32gb_azul_7gen.webp',
@@ -96,7 +96,7 @@ const items: Item[] = [
   {
     id: '8',
     title: 'Nokia G60 5G 128GB Nuevo en caja sellado',
-    price: 80,
+    price: 870000,
     currency: Currency.ARS,
     image: '/images/nokia_g60.webp',
     location: {
