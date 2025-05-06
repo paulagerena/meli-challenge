@@ -8,7 +8,7 @@ import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs';
 
 const Home: FC = (): JSX.Element => {
   const loading = useAppSelector((state) => state.search.loading);
-  const results = useAppSelector((state) => state.search.results);
+  const items = useAppSelector((state) => state.search.breadcrumbItems);
 
   return (
     <section className="home">
@@ -17,7 +17,7 @@ const Home: FC = (): JSX.Element => {
         <SearchBar />
       </header>
       <main className="home__content">
-        {results && results.length > 0 && <Breadcrumbs />}
+        {items && <Breadcrumbs />}
         <Outlet />
       </main>
     </section>

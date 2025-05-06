@@ -43,7 +43,7 @@ export interface ItemDetail {
   image?: string;
   location: Location;
   description?: string;
-  category_breadcrumbs?: CategoryPath[];
+  category_breadcrumb?: CategoryPath[];
 }
 
 export interface SearchResponse {

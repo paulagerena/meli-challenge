@@ -4,11 +4,13 @@ import { Condition, ItemDetail as ItemModel } from '../../models/Search.model';
 import SearchService from '../../services/Search.service';
 import './ItemDetail.scss';
 import Button from '../Button/Button';
-import { useAppSelector } from '../../redux/hooks';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { useParams } from 'react-router';
+import { updateBreadcrumbItems } from '../../redux/features/searchSlice';
 
 const ItemDetail: FC = (): JSX.Element => {
   const params = useParams();
+  const dispatch = useAppDispatch();
   const itemId = useAppSelector((state) => state.search.selectedItemId);
 
   const [itemData, setItemData] = useState<ItemModel | null>(null);
@@ -18,6 +20,8 @@ const ItemDetail: FC = (): JSX.Element => {
       const response = await SearchService.getItemById(id);
 
       setItemData(response);
+      console.log('Item cats', response.category_breadcrumb);
+      dispatch(updateBreadcrumbItems(response.category_breadcrumb || null));
     } catch {
       console.error('Error retrieving item data');
     }

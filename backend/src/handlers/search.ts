@@ -39,7 +39,6 @@ const findItemsByKeywords = async (req: Request, res: Response) => {
       (item) => item.id === firstItem.id
     )?.category_breadcrumb;
 
-    console.log('General category:', generalCategory);
     // Return the found items
     res.status(200).json({
       items: foundItems,
