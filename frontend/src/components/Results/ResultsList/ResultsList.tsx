@@ -24,6 +24,7 @@ const ResultsList: FC = (): JSX.Element => {
           ))}
         </ul>
       ) : (
+        items &&
         items?.length === 0 &&
         !loading && (
           <span className="results-list__empty">

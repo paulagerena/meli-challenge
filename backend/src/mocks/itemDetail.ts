@@ -1,4 +1,5 @@
 import { Condition, Currency, ItemDetail } from '../models/items.model';
+import { addCategoryBreadcrumb } from './categories';
 
 // Mock details for each possible search result item
 const itemDetail1: ItemDetail = {
@@ -136,7 +137,9 @@ const itemDetail8: ItemDetail = {
   }
 };
 
-const allItems: ItemDetail[] = [
+// Each item may return a list of hierarchical categories to which it belongs.
+// This will feed the Breadcrumb component in the frontend.
+const itemsWithBreadcrumbs = [
   itemDetail1,
   itemDetail2,
   itemDetail3,
@@ -145,6 +148,6 @@ const allItems: ItemDetail[] = [
   itemDetail6,
   itemDetail7,
   itemDetail8
-];
+].map((item) => addCategoryBreadcrumb(item));
 
-export { allItems };
+export { itemsWithBreadcrumbs };

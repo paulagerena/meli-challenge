@@ -1,0 +1,33 @@
+@import '../../styles/mixins/responsive.scss';
+@import '../../styles/variables.scss';
+
+.breadcrumbs {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 100%;
+  gap: 0.25rem;
+  margin-bottom: 1rem;
+  margin-left: 1rem;
+
+  @include small {
+    max-width: $meli-max-width;
+  }
+
+  &__item {
+    position: relative;
+    color: $meli-dark-gray;
+    text-decoration: none;
+    font-size: 0.85rem;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  &__separator {
+    font-size: 1.2rem;
+    font-weight: 400;
+    color: $meli-light-gray;
+  }
+}

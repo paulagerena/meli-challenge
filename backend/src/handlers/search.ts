@@ -1,6 +1,8 @@
 import { Request, RequestHandler, Response } from 'express';
 import { Item } from '../models/items.model';
 import searchResults from '../mocks/searchResults';
+import { addCategoryBreadcrumb } from '../mocks/categories';
+import { itemsWithBreadcrumbs } from '../mocks/itemDetail';
 
 const findItemsByKeywords = async (req: Request, res: Response) => {
   const { keywords } = req.params;
@@ -31,10 +33,17 @@ const findItemsByKeywords = async (req: Request, res: Response) => {
       return;
     }
 
+    // Pick a relevant category breadcrumb for results batch
+    const firstItem = foundItems[0];
+    const generalCategory = itemsWithBreadcrumbs.find(
+      (item) => item.id === firstItem.id
+    )?.category_breadcrumb;
+
     // Return the found items
     res.status(200).json({
       items: foundItems,
-      total_found: foundItems.length
+      total_found: foundItems.length,
+      category_path: generalCategory
     });
     return;
   } catch (error) {

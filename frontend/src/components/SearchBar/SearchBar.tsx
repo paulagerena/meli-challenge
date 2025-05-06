@@ -1,4 +1,4 @@
-import React, { FC, JSX, useEffect, useState } from 'react';
+import React, { FC, JSX, useCallback, useEffect, useState } from 'react';
 import { useNavigate, useParams, Link } from 'react-router';
 import SearchService from '../../services/Search.service.tsx';
 import Logo from '../../assets/logo.svg';
@@ -7,13 +7,15 @@ import { useAppDispatch, useAppSelector } from '../../redux/hooks.ts';
 import {
   updateLoading,
   updateResults,
-  updateLatestSearchTerm
+  updateLatestSearchTerm,
+  updateBreadcrumbItems,
+  clearSearchState
 } from '../../redux/features/searchSlice.ts';
 
 const SearchBar: FC = (): JSX.Element => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const params = useParams();
+  const { keywords } = useParams();
 
   const latestSearchTerm = useAppSelector((state) => state.search.latestSearchTerm);
 
@@ -23,25 +25,26 @@ const SearchBar: FC = (): JSX.Element => {
     setSearchTerm(event.target.value);
   };
 
-  const getSearchResults = async (searchTerm: string) => {
+  const getSearchResults = useCallback(async (searchTerm: string) => {
     dispatch(updateLoading(true));
 
     try {
       const response = await SearchService.searchByKeywords(searchTerm);
 
       dispatch(updateResults(response.items));
+      dispatch(updateBreadcrumbItems(response.category_path));
       dispatch(updateLatestSearchTerm(searchTerm));
-
       // Navigate to the search results page
       navigate(`/resultados/${searchTerm}`);
     } catch (error) {
       dispatch(updateResults([]));
       dispatch(updateLatestSearchTerm(null));
+      navigate(`/resultados/error`);
       console.error('Error fetching data', error);
     } finally {
       dispatch(updateLoading(false));
     }
-  };
+  }, []);
 
   const handleSearch = async (
     event: React.MouseEvent<HTMLElement> | React.FormEvent<HTMLFormElement>
@@ -64,19 +67,19 @@ const SearchBar: FC = (): JSX.Element => {
   };
 
   useEffect(() => {
-    if (params && params.keywords && params.keywords !== latestSearchTerm) {
-      const formattedKeywords = params.keywords.replace(/\+/g, ' ');
+    if (keywords && keywords !== latestSearchTerm) {
+      const formattedKeywords = keywords.replace(/\+/g, ' ');
       setSearchTerm(formattedKeywords);
 
       // Fetch search results based on the keywords in the URL
       getSearchResults(formattedKeywords);
     }
-  }, [params]);
+  }, [keywords]);
 
   return (
     <section className="search-bar">
       <div className="search-bar__content">
-        <Link className="search-bar__logo" to="/">
+        <Link className="search-bar__logo" to="/" onClick={() => dispatch(clearSearchState())}>
           <Logo />
         </Link>
         <form onSubmit={handleSearch} className="search-bar__form">

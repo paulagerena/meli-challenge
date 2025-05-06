@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { ItemDetail } from '../models/items.model';
-import { allItems } from '../mocks/itemDetail';
+import { itemsWithBreadcrumbs as allItems } from '../mocks/itemDetail';
 
 const getItemDetail = async (req: Request, res: Response) => {
   const { id } = req.params;

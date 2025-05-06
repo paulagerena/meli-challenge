@@ -17,6 +17,12 @@ export interface Location {
   country: string;
 }
 
+export interface CategoryPath {
+  link: string;
+  name: string;
+  position: number;
+}
+
 export interface Item {
   id: string;
   title: string;
@@ -37,4 +43,5 @@ export interface ItemDetail {
   image: string;
   description: string;
   location: Location;
+  category_breadcrumb?: CategoryPath[];
 }
