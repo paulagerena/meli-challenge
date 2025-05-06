@@ -3,7 +3,7 @@
 
 .item-detail {
   display: flex;
-  width: $meli-max-width;
+  width: 100%;
   align-items: center;
   flex-direction: column;
   justify-content: center;
@@ -14,7 +14,7 @@
 
   @include small {
     flex-direction: row;
-    min-width: $meli-max-width;
+    max-width: $meli-max-width;
   }
 
   img {
