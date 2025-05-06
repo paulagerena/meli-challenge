@@ -14,8 +14,13 @@ npm install
 
 npm run dev
 
+## Visit in a browser
+
+http://localhost:5173
+
 # Features
 
+- Welcome page.
 - Search bar with input to enter keywords or text and search.
 - Loading indicator when results load.
 - Results list that shows found items by their title.
