@@ -1,3 +1,5 @@
+/// <reference types="vitest"/>
+
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react-swc';
 import svgr from 'vite-plugin-svgr';
@@ -19,5 +21,15 @@ export default defineConfig({
       }
     }
   },
-  plugins: [svgr(), svgr({ include: '**/*.svg' }), react()]
+  plugins: [svgr(), svgr({ include: '**/*.svg' }), react()],
+  test: {
+    environment: 'happy-dom',
+    setupFiles: './src/setupTests.ts',
+    css: true,
+    coverage: {
+      reporter: ['text', 'json', 'html'],
+      all: true,
+      include: ['src/**/*.{test}.{ts,tsx}']
+    }
+  }
 });
