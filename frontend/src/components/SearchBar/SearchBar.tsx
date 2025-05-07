@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { FC, JSX, useCallback, useEffect, useState } from 'react';
 import { useNavigate, useParams, Link } from 'react-router';
 import SearchService from '../../services/Search.service.tsx';
@@ -77,9 +78,14 @@ const SearchBar: FC = (): JSX.Element => {
   }, [keywords]);
 
   return (
-    <section className="search-bar">
+    <section className="search-bar" data-testid="search-bar">
       <div className="search-bar__content">
-        <Link className="search-bar__logo" to="/" onClick={() => dispatch(clearSearchState())}>
+        <Link
+          className="search-bar__logo"
+          to="/"
+          onClick={() => dispatch(clearSearchState())}
+          data-testid="meli-logo"
+        >
           <Logo />
         </Link>
         <form onSubmit={handleSearch} className="search-bar__form">
@@ -90,8 +96,14 @@ const SearchBar: FC = (): JSX.Element => {
             placeholder="Nunca dejes de buscar..."
             onChange={handleInputChange}
             className="search-bar__input"
+            data-testid="search-input"
           />
-          <button type="submit" className="search-bar__submit" onClick={handleSearch}>
+          <button
+            type="submit"
+            className="search-bar__submit"
+            onClick={handleSearch}
+            data-testid="search-submit"
+          >
             {' '}
             <i className="material-icons">search</i>
           </button>
